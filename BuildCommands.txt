@@ -1,0 +1,87 @@
+### DOCKER COMMANDS ###
+docker ps -a # lists ALL containers running and stopped
+docker container prune # removes all stopped containers
+docker volume ls # lists all volumes
+docker volume rm <id> removes a volume
+docker volume prune # removes all unused volumes
+#######################
+
+# Create python virtualenv
+cd ~/git/2023-ectf-tools && python -m venv env
+
+# Activate virtual env
+source ~/git/2023-ectf-tools/env/bin/activate
+
+# Install eCTF Tools
+python -m pip install -e ~/git/2023-ectf-tools
+
+# Build Environment
+python -m ectf_tools build.env \
+--design ~/git/2023-ectf-insecure-example \
+--name mitre_example
+
+# Build Tools
+python -m ectf_tools build.tools \
+--design ~/git/2023-ectf-insecure-example \
+--name mitre_example
+
+$ Build Deployment
+python -m ectf_tools build.depl \
+--design ~/git/2023-ectf-insecure-example \
+--name mitre_example \
+--deployment mitre_example_deployment
+
+# Build Car + Fob pair
+python -m ectf_tools build.car_fob_pair \
+--design ~/git/2023-ectf-insecure-example \
+--name mitre_example \
+--deployment mitre_example_deployment \
+--car-out ~/git/2023-ectf-insecure-example/car_out \
+--fob-out ~/git/2023-ectf-insecure-example/fob_out \
+--car-name mitre_example_car0 \
+--fob-name mitre_example_fob0 \
+--car-id 0 \
+--pair-pin 1337
+
+# Build unpaired fob
+python -m ectf_tools build.fob \
+--design ~/git/2023-ectf-insecure-example  \
+--name mitre_example \
+--deployment mitre_example_deployment \
+--fob-out ~/git/2023-ectf-insecure-example/u_fob_out \
+--fob-name mitre_example_ufob0
+
+# Flash "Car" board
+python -m ectf_tools device.load_hw \
+--dev-in ~/git/2023-ectf-insecure-example/car_out \
+--dev-name mitre_example_car0 \
+--dev-serial /dev/ttyACM0
+
+# Flash paired "Fob" board
+python -m ectf_tools device.load_hw \
+--dev-in ~/git/2023-ectf-insecure-example/fob_out \
+--dev-name mitre_example_fob0 \
+--dev-serial /dev/ttyACM1
+
+# Flash unpaired fob
+python -m ectf_tools device.load_hw \
+--dev-in ~/git/2023-ectf-insecure-example/u_fob_out \
+--dev-name mitre_example_ufob0 \
+--dev-serial /dev/ttyACM1
+
+# Run Host-Car bridge
+python -m ectf_tools device.bridge \
+--bridge-id 1111 \
+--dev-serial /dev/ttyACM0
+
+# Unlock Car using paired Fob
+python -m ectf_tools run.unlock \
+--name mitre_example \
+--car-bridge 1111
+
+# Pair unpaired fob
+python -m ectf_tools run.pair \
+--name <SYSTEM_NAME> \
+--unpaired-fob-bridge <UNPAIRED_FOB_SOCKET> \
+--paired-fob-bridge <PAIRED_FOB_SOCKET> \
+--pair-pin <PAIR_PIN>
