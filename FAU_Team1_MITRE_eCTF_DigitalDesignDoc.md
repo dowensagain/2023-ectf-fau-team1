@@ -1,4 +1,4 @@
-####FAU Team 1 MITRE eCTF Design Reference
+### FAU Team 1 MITRE eCTF Design Reference
 
 # Security Requirements
 
