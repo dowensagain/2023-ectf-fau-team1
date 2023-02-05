@@ -16,7 +16,7 @@ We will secure communication between the paired fob and the car using TLS and AE
 
 _**SR4: Having an unpaired fob should not allow an attacker to unlock a car without a corresponding paired fob and pairing PIN**_
 
-In our design, the pairing process will always produce a result that is stored in the unpaired fob. If the pairing pin or password is incorrect, the secret unlock key given to the unpaired will be incorrect, preventing access to the car. Secrets in the paired fob will be stored securely in EEPROM preventing access from the attacker.
+In our design, the pairing process will always produce a result that is stored in the unpaired fob. If the pairing pin or password is incorrect, the secret unlock key given to the unpaired fob will be incorrect, preventing access to the car. Secrets in the paired fob will be stored securely in EEPROM preventing access from the attacker.
 
 _**SR5: A car owner should not be able to add new features to a fob that did not get packaged by the manufacturer**_
 
