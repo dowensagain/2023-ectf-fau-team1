@@ -23,6 +23,7 @@ _**SR5: A car owner should not be able to add new features to a fob that did not
 In our design, each car will be assigned a random unique id. This id will be used to digitally sign feature packages that the target fob must verify came from the manufacturer.
 
 _**SR6: Access to a feature packaged for one car should not allow an attacker to enable the same feature on another car**_
+
 Each packaged feature will be signed with a unique car id. If one car's feature was provided to another car's fob, the signature would fail verification, preventing the enabling of that feature.
 
 
