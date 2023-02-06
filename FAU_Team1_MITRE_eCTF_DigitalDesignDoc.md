@@ -1,6 +1,6 @@
-### FAU Team 1 MITRE eCTF Design Reference
+### FAU Team 1 MITRE eCTF 
 
-# Security Requirements
+# Design Reference
 
 _**SR1: A car should only unlock and start when the user has an authentic fob that is paired with the car**_
 
