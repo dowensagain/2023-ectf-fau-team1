@@ -1,4 +1,4 @@
-### FAU Team 1 MITRE eCTF 
+### MITRE eCTF FAU Team 1
 
 # Design Reference
 
