@@ -20,7 +20,7 @@ In our design, the pairing process will always produce a result that is stored i
 
 _**SR5: A car owner should not be able to add new features to a fob that did not get packaged by the manufacturer**_
 
-In our design, each car will be assigned a random unique id. This id will be used to digitally sign feature packages that the target fob must verify came from the manufacturer.
+In our design, each car will be assigned a random unique id. Using this id and a digital signature scheme such as EdDSA, we will sign feature packages that the target fob must then verify came from the manufacturer.
 
 _**SR6: Access to a feature packaged for one car should not allow an attacker to enable the same feature on another car**_
 
